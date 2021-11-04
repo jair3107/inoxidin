@@ -2,7 +2,7 @@
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+            <img src="Images\inoxidin logo.PNG" width="300", height="100">
             </a>
         </x-slot>
 
@@ -50,7 +50,17 @@
                 <x-button class="ml-3">
                     {{ __('Log in') }}
                 </x-button>
+
+                
             </div>
+            
         </form>
+        
+        <form method="GET" action="{{ route('register') }}">
+        <x-button class="ml-4">
+                    Register
+                </x-button>
+        </form>
+    
     </x-auth-card>
 </x-guest-layout>
