@@ -36,5 +36,7 @@
 
 <input type="submit" value="Agregar">
 
+<a href="{{ url('productos') }}">Regresar</a>
+
 </form>
 </x-guest-layout>
