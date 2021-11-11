@@ -48,7 +48,7 @@ class ProductosController extends Controller
 
         Productos::insert($datosProductos);
 
-        return redirect('productos');
+        return redirect('productos')->with('Mensaje','Producto agregado con exito');
         
         
     }
@@ -100,8 +100,7 @@ class ProductosController extends Controller
 
         Productos::where('id', '=', $id)->update($datosProductos);
 
-        $producto = Productos::findOrFail($id);
-        return view('productos.edit', compact('producto'));
+        return redirect('productos')->with('Mensaje','Producto modificado con exito');
     }
 
     /**
@@ -121,7 +120,7 @@ class ProductosController extends Controller
 
         }
 
-
-        return redirect('productos');
+        
+        return redirect('productos')->with('Mensaje','Producto eliminado con exito');
     }
 }
