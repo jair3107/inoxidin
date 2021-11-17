@@ -29,3 +29,7 @@ Route::get('/dashboard', function () {
 //Auth::routes();(['forgot-password'=>false]);
 
 require __DIR__.'/auth.php';
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', [ProductosController::class, 'index'])->name('home');
+});

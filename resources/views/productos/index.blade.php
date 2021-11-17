@@ -10,9 +10,10 @@
         
 
 <br>
-        <a href="{{ url('productos/create') }}">Agregar Productos</a>
+        <a href="{{ url('productos/create') }}" class="btn btn-success">Agregar Productos</a>
+        <br>
         </br>
-        <table class="table table-light">
+        <table class="table table-light table-hover">
 
             <thead class="thead-light">
                 <tr>
@@ -31,7 +32,7 @@
                 <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>
-                        <img src="{{ asset('storage').'/'.$productos->Foto}}" alt="" width="200">
+                        <img src="{{ asset('storage').'/'.$productos->Foto}}" class="img-thumbnail img-fluid" alt="" width="100">
                     </td>
                     <td>{{$productos->Nombre}}</td>
                     <td>$ {{$productos->Precio}}</td>
@@ -39,16 +40,14 @@
                     <td>{{$productos->Descripcion}}</td>
                     <td>
 
-                        <a href="{{ url('/productos/'.$productos->id.'/edit') }}">
+                        <a class="btn btn-warning" href="{{ url('/productos/'.$productos->id.'/edit') }}">
                             Editar
                         </a>
 
-
-
-                        <form method="post" action="{{ url('/productos/'.$productos->id) }}">
+                        <form method="post" action="{{ url('/productos/'.$productos->id) }}" style="display:inline">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
-                            <button type="submit" onclick="return confirm('Borrar?')">Borrar</button>
+                            <button class="btn btn-danger" type="submit" onclick="return confirm('Borrar?')">Borrar</button>
 
                         </form>
 
@@ -58,5 +57,6 @@
             </tbody>
 
         </table>
+
 
 @endsection

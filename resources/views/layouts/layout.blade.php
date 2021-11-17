@@ -63,7 +63,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Task List
+                    Inoxidin
                 </a>
             </div>
 

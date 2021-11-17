@@ -40,6 +40,17 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
+        $campos=[
+            'Nombre' => 'required|string|max:100',
+            'Precio' => 'required|number|max:1000',
+            'Cantidad' => 'required|number|max:1000',
+            'Descripcion' => 'required|string|max:100',
+            'Foto' => 'required|max:10000|mimes:jpeg,png,jpg',
+        ];
+        $Mensaje=["required"=>'El :attribute es requerido'];
+
+        $this->validate($request, $campos, $Mensaje);
+
         $datosProductos = request()->except('_token');
 
         if ($request->hasFile('Foto')) {
