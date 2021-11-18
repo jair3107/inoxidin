@@ -1,36 +1,45 @@
+@if(count($errors)>0)
 
-<div class="form-grup">
+    <div class="alert alert-danger" role="alert">
+    <ul>
+        @foreach( $errors->all() as $error)
+        <li> {{ $error }} </li>
+    @endforeach
+    </ul>
+    </div>
+
+@endif
+
+<div class="form-group">
     <label for="Nombre">{{'Nombre'}}</label>
     <input type="text" class="form-control {{ $errors->has('Nombre')? 'is-invalid':'' }}" name="Nombre" id="Nombre" 
-    value="{{ isset($producto->Nombre)?$producto->Nombre:''  }}">
+    value="{{ isset($producto->Nombre)?$producto->Nombre:old('Nombre')  }}">
 
     
 
 </div>
-<br>
 
-<div class="form-grup">
+<div class="form-group">
     <label for="Precio">{{'Precio'}}</label>
     <input type="number" class="form-control" name="Precio" id="Precio" 
-    value="{{ isset($producto->Precio)?$producto->Precio:'' }}" step="any">
+    value="{{ isset($producto->Precio)?$producto->Precio:old('Precio') }}" step="any">
 </div>
-<br>
 
-<div class="form-grup">
+<div class="form-group">
     <label for="Cantidad">{{'Cantidad'}}</label>
     <input type="number" class="form-control" name="Cantidad" id="Cantidad" 
-    value="{{ isset($producto->Cantidad)?$producto->Cantidad:''  }}">
+    value="{{ isset($producto->Cantidad)?$producto->Cantidad:old('Cantidad') }}">
 </div>
-<br>
 
-<div class="form-grup">
+
+<div class="form-group">
     <label for="Descripcion">{{'Descripcion'}}</label>
     <input type="text" class="form-control" name="Descripcion" id="Descripcion"
-    value="{{ isset($producto->Descripcion)?$producto->Descripcion:''  }}">
+    value="{{ isset($producto->Descripcion)?$producto->Descripcion:old('Descripcion') }}">
 </div>
-<br>
 
-<div class="form-grup">
+
+<div class="form-group">
     <label for="Foto">{{'Foto'}}</label>
     @if(isset($producto->Foto))
     <br>

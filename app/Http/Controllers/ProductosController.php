@@ -16,7 +16,7 @@ class ProductosController extends Controller
     public function index()
     {
         //
-        $datos['productos'] = Productos::paginate(5);
+        $datos['productos'] = Productos::paginate(10);
 
         return view('productos.index', $datos);
     }
@@ -42,12 +42,12 @@ class ProductosController extends Controller
     {
         $campos=[
             'Nombre' => 'required|string|max:100',
-            'Precio' => 'required|number|max:1000',
-            'Cantidad' => 'required|number|max:1000',
+            'Precio' => 'required|numeric|max:100000',
+            'Cantidad' => 'required|numeric|max:1000',
             'Descripcion' => 'required|string|max:100',
             'Foto' => 'required|max:10000|mimes:jpeg,png,jpg',
         ];
-        $Mensaje=["required"=>'El :attribute es requerido'];
+        $Mensaje=['required'=>'El :attribute es requerido', 'Foto.required'=>'La foto es requerida' ];
 
         $this->validate($request, $campos, $Mensaje);
 
@@ -98,7 +98,23 @@ class ProductosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $campos=[
+            'Nombre' => 'required|string|max:100',
+            'Precio' => 'required|numeric|max:100000',
+            'Cantidad' => 'required|numeric|max:1000',
+            'Descripcion' => 'required|string|max:100',
+        ];
+
+        $Mensaje=['required'=>'El :attribute es requerido'];
+
+        if ($request->hasFile('Foto')) {
+            $campos=['Foto' => 'required|max:10000|mimes:jpeg,png,jpg'];
+            $Mensaje=['Foto.required'=>'La foto es requerida'];
+        }
+
+        $this->validate($request, $campos, $Mensaje);
+
+
         $datosProductos = request()->except(['_token', '_method']);
 
         if ($request->hasFile('Foto')) {
