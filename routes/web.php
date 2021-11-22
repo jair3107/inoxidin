@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers;
+use App\Http\Controllers\ProductosController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +20,12 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
+Route::resource('productos', ProductosController::class);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+//Auth::routes();(['forgot-password'=>false]);
 
 require __DIR__.'/auth.php';
