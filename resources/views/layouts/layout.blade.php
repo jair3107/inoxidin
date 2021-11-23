@@ -62,8 +62,8 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Task List
+                <a class="navbar-brand" href="{{ url('/index') }}">
+                    Inoxidin
                 </a>
             </div>
 

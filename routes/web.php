@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\VisitingUserController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -23,6 +24,8 @@ Route::get('/', function () {
 Route::get('/denied',function () {
     return view('401error');
 })->name('denied');
+
+Route::get('/index', [VisitingUserController::class, 'index']);
 
 Route::resource('productos', ProductosController::class)->middleware('superAdmin');
 
