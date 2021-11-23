@@ -20,7 +20,11 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
-Route::resource('productos', ProductosController::class);
+Route::get('/denied',function () {
+    return view('401error');
+})->name('denied');
+
+Route::resource('productos', ProductosController::class)->middleware('superAdmin');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
