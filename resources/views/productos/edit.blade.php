@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 
+<div class="container">
 <h1>Editar Producto</h1>
 <br>
 
@@ -10,7 +11,7 @@
     @include('productos.form',['Modo'=>'editar'])
 
 </form>
-
+</div>
 
 
 @endsection

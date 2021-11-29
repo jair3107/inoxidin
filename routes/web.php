@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\VisitingUserController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -20,7 +21,13 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
-Route::resource('productos', ProductosController::class);
+Route::get('/denied',function () {
+    return view('401error');
+})->name('denied');
+
+Route::get('/index', [VisitingUserController::class, 'index'])->name('index');
+
+Route::resource('productos', ProductosController::class)->middleware('superAdmin');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

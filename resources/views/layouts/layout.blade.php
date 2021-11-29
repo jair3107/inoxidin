@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,12 +20,14 @@
         body {
             font-family: 'Lato';
         }
+
         .fa-btn {
             margin-right: 6px;
         }
-        .button{
-            border:none;
-            color:white;
+
+        .button {
+            border: none;
+            color: white;
             text-align: center;
             text-decoration: none;
             display: inline-block;
@@ -36,18 +39,20 @@
             transition-duration: 0.4s;
             cursor: pointer;
         }
-        .button1{
+
+        .button1 {
             background-color: white;
             color: black;
-            
+
         }
-        .button1:hover{
+
+        .button1:hover {
             background-color: blue;
             color: white;
         }
-
     </style>
 </head>
+
 <body id="app-layout">
     <nav class="navbar navbar-default">
         <div class="container">
@@ -62,7 +67,7 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/index') }}">
                     Inoxidin
                 </a>
             </div>
@@ -70,24 +75,33 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
+                    @if (!Auth::guest())
+                        @if (Auth::user()->user_type==1)
+
+                            <li><a href="{{ url('/productos') }}">Productos</a></li>
+
+                        @endif
+                    @endif
                 </ul>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
+                    <li><a href="{{ url('/login') }}">Login</a></li>
+                    <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            {{ Auth::user()->name }} <span class="caret"></span>
+                        </a>
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li><form action="/logout" method="post"> {{ csrf_field() }}<button class="button button1" >Logout</button></form></li>
-                            </ul>
-                        </li>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <form action="/logout" method="post"> {{ csrf_field() }}<button class="button button1">Logout</button></form>
+                            </li>
+                        </ul>
+                    </li>
                     @endif
                 </ul>
             </div>
@@ -101,4 +115,5 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
+
 </html>

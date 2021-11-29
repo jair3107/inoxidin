@@ -1,15 +1,16 @@
 @extends('layouts.layout')
 @section('content')
 
+<div class="container">
 
-    @if(Session::has('Mensaje'))
-    <div class="alert alert-success alert-dismissible" role="alert">
+@if(Session::has('Mensaje'))
+<div class="alert alert-success alert-dismissible" role="alert">
     {{Session::get('Mensaje')}}
     <button type="button" class="close" data-dismiss='alert' aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-    @endif
+@endif
 
 
 
@@ -63,5 +64,10 @@
     </tbody>
 
 </table>
+
+
+
+
+</div>
 
 @endsection

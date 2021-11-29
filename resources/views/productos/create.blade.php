@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('content')
-
-<h1>Añadir Producto</h1>
+<div class="container">
+<h1 >Añadir Producto</h1>
 <br>
 
 
@@ -13,5 +13,5 @@
 
 
 </form>
-
+</div>
 @endsection
