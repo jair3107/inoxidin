@@ -4,7 +4,7 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/">
+            <a href="/index">
             <img src="Images\inoxidin logo.PNG" width="300", height="100">
             </a>
         </x-slot>
@@ -34,14 +34,7 @@
                                 name="password"
                                 required autocomplete="current-password" />
             </div>
-
-            <!-- Remember Me -->
-            <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
+            
 
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
@@ -59,11 +52,7 @@
             
         </form>
         
-        <form method="GET" action="{{ route('register') }}">
-        <x-button class="ml-4">
-                    Register
-                </x-button>
-        </form>
+        
     
     </x-auth-card>
 </x-guest-layout>

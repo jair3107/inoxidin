@@ -3,7 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\VentasController;
 use App\Http\Controllers\VisitingUserController;
+use App\Models\Ventas;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -27,13 +30,17 @@ Route::get('/denied',function () {
 
 Route::get('/index', [VisitingUserController::class, 'index'])->name('index');
 
-Route::resource('productos', ProductosController::class)->middleware('superAdmin');
+Route::resource('productos', ProductosController::class)->middleware('empleado');
+
+Route::post('/productos/{id}/venta', [ProductosController::class,'venta'])->middleware('empleado');
+
+Route::resource('usuarios', UsersController::class)->middleware('superAdmin');
+
+Route::resource('ventas', VentasController::class)->middleware('empleado');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
-
-//Auth::routes();(['forgot-password'=>false]);
 
 require __DIR__.'/auth.php';
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Productos;
+use App\Models\Ventas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -40,14 +41,14 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-        $campos=[
+        $campos = [
             'Nombre' => 'required|string|max:100',
             'Precio' => 'required|numeric|max:100000',
             'Cantidad' => 'required|numeric|max:1000',
             'Descripcion' => 'required|string|max:100',
             'Foto' => 'required|max:10000|mimes:jpeg,png,jpg',
         ];
-        $Mensaje=['required'=>'El :attribute es requerido', 'Foto.required'=>'La foto es requerida' ];
+        $Mensaje = ['required' => 'El :attribute es requerido', 'Foto.required' => 'La foto es requerida'];
 
         $this->validate($request, $campos, $Mensaje);
 
@@ -59,9 +60,7 @@ class ProductosController extends Controller
 
         Productos::insert($datosProductos);
 
-        return redirect('productos')->with('Mensaje','Producto agregado con exito');
-        
-        
+        return redirect('productos')->with('Mensaje', 'Producto agregado con exito');
     }
 
     /**
@@ -83,9 +82,7 @@ class ProductosController extends Controller
      */
     public function edit($id)
     {
-        //
         $producto = Productos::findOrFail($id);
-
         return view('productos.edit', compact('producto'));
     }
 
@@ -98,18 +95,18 @@ class ProductosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $campos=[
+        $campos = [
             'Nombre' => 'required|string|max:100',
             'Precio' => 'required|numeric|max:100000',
             'Cantidad' => 'required|numeric|max:1000',
             'Descripcion' => 'required|string|max:100',
         ];
 
-        $Mensaje=['required'=>'El :attribute es requerido'];
+        $Mensaje = ['required' => 'El :attribute es requerido'];
 
         if ($request->hasFile('Foto')) {
-            $campos=['Foto' => 'required|max:10000|mimes:jpeg,png,jpg'];
-            $Mensaje=['Foto.required'=>'La foto es requerida'];
+            $campos = ['Foto' => 'required|max:10000|mimes:jpeg,png,jpg'];
+            $Mensaje = ['Foto.required' => 'La foto es requerida'];
         }
 
         $this->validate($request, $campos, $Mensaje);
@@ -127,7 +124,7 @@ class ProductosController extends Controller
 
         Productos::where('id', '=', $id)->update($datosProductos);
 
-        return redirect('productos')->with('Mensaje','Producto modificado con exito');
+        return redirect('productos')->with('Mensaje', 'Producto modificado con exito');
     }
 
     /**
@@ -138,16 +135,32 @@ class ProductosController extends Controller
      */
     public function destroy($id)
     {
-        //
-
         $producto = Productos::findOrFail($id);
 
         if (Storage::delete(['public/' . $producto->Foto])) {
             Productos::destroy($id);
-
         }
 
-        
-        return redirect('productos')->with('Mensaje','Producto eliminado con exito');
+
+        return redirect('productos')->with('Mensaje', 'Producto eliminado con exito');
+    }
+
+    public function venta($id)
+    {
+        $producto = Productos::findOrFail($id);
+
+        if ($producto->Cantidad == 0)
+            return redirect('productos')->with('Mensaje', 'Se agotaron existencias');
+        else {
+            $venta = new Ventas();
+            $venta->ProductoId = $producto->id;
+            $venta->Producto = $producto->Nombre;
+            $venta->Precio = $producto->Precio;
+            $venta->Descripcion = $producto->Descripcion;
+            $venta->save();
+            $producto->Cantidad = $producto->Cantidad - 1;
+            $producto->save();
+        }
+        return redirect('/productos');
     }
 }
